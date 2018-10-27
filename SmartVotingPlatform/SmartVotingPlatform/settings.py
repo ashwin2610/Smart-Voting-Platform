@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user_details',
     'widget_tweaks',
     'party',
+    'simulation',
 ]
 
 MIDDLEWARE = [

@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user_details/', include('user_details.urls')),
     # path('party/', include('party.urls')),
+    # path('simulation/',include('simulation.urls')),
 ]
