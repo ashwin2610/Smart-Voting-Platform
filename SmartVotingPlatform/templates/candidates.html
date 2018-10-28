@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+<style>
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
+</style>
+<body>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
+  <h5>LIST OF</h5>
+  <h1>PARTIES</h1>
+
+</header>
+
+
+
+<!-- Photo Grid -->
+<!-- <style>
+div {
+    padding-left: 80px;
+}
+</style> -->
+
+<div style="padding-left: 15%;">
+    <div class="w3-row-padding w3-grayscale" style="margin-bottom:128px">
+      <div class="w3-half">
+          <div class="flip-card">
+           <div class="flip-card-inner">
+             <div class="flip-card-front">
+               <h1>Party</h1>
+             </div>
+             <div class="flip-card-back">
+                 <h6>Policies</h6>
+                 <p></p>
+                 <br><br>
+                 <h6>Party Head</h6>
+                 <button class="btn">
+                    <span class="text">Press Me!</span>
+                </button>
+             </div>
+           </div>
+         </div>
+      </div>
+
+      <div class="w3-half">
+          <div class="flip-card">
+           <div class="flip-card-inner">
+             <div class="flip-card-front">
+                 <h1>Party</h1>
+               </div>
+               <div class="flip-card-back">
+                   <h6>Policies</h6>
+                   <p></p>
+                   <br><br>
+                   <h6>Party Head</h6>
+                   <button class="btn">
+                      <span class="text">Press Me!</span>
+                  </button>
+             </div>
+           </div>
+         </div>
+      </div>
+    </div>
+</div>
+<!-- End Page Content -->
+</div>
+
+
+<script>
+var $btn = document.querySelector('.btn');
+
+$btn.addEventListener('click', e => {
+  alert()
+  window.requestAnimationFrame(() => {
+    $btn.classList.remove('is-animating');
+
+    window.requestAnimationFrame(() => {
+      $btn.classList.add('is-animating');
+    });
+  });
+});
+</script>
+
+
+</body>
+</html>

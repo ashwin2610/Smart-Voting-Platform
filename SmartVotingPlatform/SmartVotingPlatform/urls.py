@@ -24,6 +24,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
     path('user_details/', include('user_details.urls')),
-    # path('party/', include('party.urls')),
+    path('vote/', include('vote.urls')),
     path('simulation/',include('simulation.urls')),
 ]

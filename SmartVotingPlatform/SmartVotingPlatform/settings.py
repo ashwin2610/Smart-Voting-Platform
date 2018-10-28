@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'background_task',
     'widget_tweaks',
     'user_details',
-    'party',
+    'vote',
     'simulation',
 ]
 
@@ -137,4 +137,3 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'dashboard'
 
 LOGOUT_REDIRECT_URL = '/login'
-
