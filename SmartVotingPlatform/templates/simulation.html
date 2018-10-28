@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simulation</title>
+	 <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+	<p>
+	Welcome to the Simulation Section.
+	Click on the button below to start simulating an election.
+	</p>
+    <button id="myButton">Start</button>
+    <script type="text/javascript">
+    	document.getElementById("myButton").onclick = function () {
+    		location.href = "{% url 'sim_start' %}";
+    	}
+    </script>
+</body>
+</html>

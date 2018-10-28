@@ -1,0 +1,122 @@
+{% load static %}
+<html>
+	<head>
+		<title> Election Simulation </title>
+ 		<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+	</head>
+	<body style="background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(151,135,255,1)), color-stop(100%, rgba(255,0,255,1))); /* safari4+,chrome */">
+		<div class="row text-center">
+			<div style="float: none; margin: 0 auto;">
+				<h1> Simulation of an Election </h1>
+				<canvas id="myChart" width="800" height="800"></canvas>
+			</div>
+		</div>
+	<script src="{% static 'vendor/chart.js/dist/Chart.bundle.min.js' %}"></script>
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/jquery.cookie.js' %}"></script>
+	{% csrf_token %}
+	
+	<script type="text/javascript">
+		var csrftoken = $.cookie('csrftoken');
+		var barChart;
+		var count = 0;
+		var if_same = true;
+		Chart.defaults.global.defaultFontSize = 20;
+		Chart.defaults.global.defaultFontColor = '#000';
+
+
+		function csrfSafeMethod(method) {
+		    // these HTTP methods do not require CSRF protection
+		    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+
+		$.ajaxSetup({
+		    beforeSend: function(xhr, settings) {
+		        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+		            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		        }
+		    }
+		});
+
+		function getRandomColor(){
+			var o = Math.round, r = Math.random, s = 255;
+    		return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + 0.7 + ')';
+
+		}
+
+		function fetchdata(){
+			$.ajax({
+				url: "{% url 'sim_start' %}",
+				type: 'POST',
+				success: function(candidate){
+				    for(var i = 0; i < candidate.votes.length; i++){
+				    	barChart.data.datasets[0].data[i] = candidate.votes[i];
+				    }
+				    barChart.options.scales.yAxes[0].ticks.min = Math.min(...candidate.votes) - 5;
+				    barChart.update();
+				},
+				complete: function(candidate){
+					theTimer = setTimeout(fetchdata,1000);
+				}
+			});
+		} 
+
+		$(document).ready(function(){
+			$.ajax({
+				url: "{% url 'sim_start' %}",
+				type: 'POST',
+				success: function(data){
+						console.log('Request received');
+						var ctx = document.getElementById('myChart').getContext('2d');
+						var colors = [];
+
+						for(var i = 0; i < data.votes.length; i++){
+							colors.push(getRandomColor())
+						}
+						console.log(colors)
+						barChart = new Chart(ctx, {
+							type: 'bar',
+							data: {
+								labels: data.first_name,
+								datasets: [{
+									label: "Number of Votes",
+									data: data.votes,
+									backgroundColor : colors
+									
+								}]
+							},
+							options: {
+								responsive: false,
+							    scales: {
+							    	gridLines: {
+							        	color: 'rgba(255, 255, 255, 0)'
+							    	},
+							      xAxes: [{
+							        scaleLabel: {
+								        display: true,
+								        labelString: "Candidates"
+								      }
+							      }],
+							      yAxes: [{
+							      	ticks: {
+								        min: Math.min(...data.votes) - 5,
+								        stepSize: 20
+								    },
+							      	scaleLabel: {
+								        display: true,
+								        labelString: "# of Votes"
+								    },
+								    
+							      }]
+							    },
+							}
+						})
+
+				},
+			});
+			theTimer = setTimeout(fetchdata,1000);
+		})
+	</script>
+
+	</body>
+</html>
