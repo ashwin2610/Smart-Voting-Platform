@@ -31,5 +31,8 @@ def signup(request):
             login(request, user)
             return redirect('home')
     else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        if request.user.is_authenticated:
+            return render(request, 'home.html')
+        else:
+            form = SignUpForm()
+            return render(request, 'signup.html', {'form': form})
