@@ -4,17 +4,25 @@
 <head>
 	<title>Simulation</title>
 	 <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+	 <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-	<p>
+	<section id="hero" class="wow fadeIn">
+    <div class="hero-container">
+      <h1>Welcome to the Simulation Section</h1>
+      <h2>Click on the button below to start simulating an election.</h2>
+      <a href="{% url 'sim_start' %}" class="btn-get-started scrollto">Start Simulation</a>
+    </div>
+  </section>
+	<!-- <p>
 	Welcome to the Simulation Section.
 	Click on the button below to start simulating an election.
-	</p>
-    <button id="myButton">Start</button>
+	</p> -->
+    <!-- <button id="myButton">Start</button>
     <script type="text/javascript">
     	document.getElementById("myButton").onclick = function () {
     		location.href = "{% url 'sim_start' %}";
     	}
-    </script>
+    </script> -->
 </body>
 </html>
