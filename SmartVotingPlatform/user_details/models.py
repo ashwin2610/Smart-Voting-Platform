@@ -32,7 +32,7 @@ class Party(models.Model):
 
 
 class PartyPolicies(models.Model):
-    policies = models.CharField(max_length=100)
+    policies = models.CharField(max_length=1000)
     party_name = models.OneToOneField(Party, models.DO_NOTHING, db_column='party_name', primary_key=True)
 
     class Meta:
