@@ -40,7 +40,7 @@ def background_votes():
         # db.connections.close_all()
         print('Voting started')
         threads = []
-        for _ in range(10):
+        for _ in range(20):
             t = GetVoteThread()
             threads.append(t)
             t.setDaemon(True)
