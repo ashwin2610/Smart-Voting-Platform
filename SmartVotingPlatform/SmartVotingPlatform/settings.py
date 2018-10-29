@@ -136,4 +136,6 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = 'user_details/login'
+
+AUTH_PROFILE_MODULE = 'user_profile.UserProfile'

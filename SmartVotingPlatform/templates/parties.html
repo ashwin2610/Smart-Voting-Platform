@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Parties</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -14,7 +14,7 @@ body,h1 {font-family: "Raleway", Arial, sans-serif}
 h1 {letter-spacing: 6px}
 .w3-row-padding img {margin-bottom: 12px}
 </style>
-<body>
+<body style="background: -webkit-linear-gradient(left, #1e5799 0%,#207cca 24%,#2989d8 50%,#207cca 91%,#1e5799 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */">
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
@@ -35,40 +35,44 @@ div {
 }
 </style> -->
 
-<div style="padding-left: 15%;">
+<div style="padding-left: 10%;">
     <div class="w3-row-padding w3-grayscale" style="margin-bottom:128px">
       <div class="w3-half">
+          {% for p in first %}
           <div class="flip-card">
            <div class="flip-card-inner">
              <div class="flip-card-front">
-               <h1>Party</h1>
+               <h1>{{ p.name }}</h1>
              </div>
              <div class="flip-card-back">
                  <h6>Policies</h6>
-                 <p></p>
+                 <p>{{ p.policy }}</p>
                  <br><br>
                  <h6>Party Head</h6>
-                 <p>We love that guy</p>
+                 <p>{{ p.head }}</p>
              </div>
            </div>
          </div>
+         {% endfor %}
       </div>
 
       <div class="w3-half">
+          {% for p in second %}
           <div class="flip-card">
            <div class="flip-card-inner">
              <div class="flip-card-front">
-                 <h1>Party</h1>
-               </div>
-               <div class="flip-card-back">
-                   <h6>Policies</h6>
-                   <p></p>
-                   <br><br>
-                   <h6>Party Head</h6>
-                   <p>We love that guy</p>
+               <h1>{{ p.name }}</h1>
+             </div>
+             <div class="flip-card-back">
+                 <h6>Policies</h6>
+                 <p>{{ p.policy }}</p>
+                 <br><br>
+                 <h6>Party Head</h6>
+                 <p>{{ p.head }}</p>
              </div>
            </div>
          </div>
+         {% endfor %}
       </div>
     </div>
 </div>

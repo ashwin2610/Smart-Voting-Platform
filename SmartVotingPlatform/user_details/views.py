@@ -2,8 +2,9 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from .forms import SignUpForm
+from .models import Voter
 from django.http import HttpResponse, HttpResponseRedirect
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -13,6 +14,7 @@ def logout_view(request):
 
 
 def signup(request):
+    print(1234567)
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -26,10 +28,18 @@ def signup(request):
             user.profile.location = form.cleaned_data.get('location')
             user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.save()
+
+            profile = user.profile
+            profile.save()
+            user.save()
+
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('dashboard')
+            return render(request, 'dashboard.html')
+        else:
+            return render(request, 'signup.html', {'form': form})
+
     else:
         if request.user.is_authenticated:
             return render(request, 'dashboard.html')

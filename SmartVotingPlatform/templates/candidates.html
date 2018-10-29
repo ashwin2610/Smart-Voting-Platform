@@ -2,19 +2,47 @@
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Candidates</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'css/card.css' %}">
+<link rel="stylesheet" href="{% static 'css/btn.css' %}">
 <style>
 body,h1 {font-family: "Raleway", Arial, sans-serif}
 h1 {letter-spacing: 6px}
 .w3-row-padding img {margin-bottom: 12px}
 </style>
-<body>
+
+{% csrf_token %}
+<script>
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+function buttonFunc(cand_id){
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    xmlhttp.open("POST", "{% url 'candidates' %}");
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify({id : cand_id}));
+}
+</script>
+
+<body style="background: -webkit-linear-gradient(left, #1e5799 0%,#207cca 24%,#2989d8 50%,#207cca 91%,#1e5799 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */">
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
@@ -22,78 +50,77 @@ h1 {letter-spacing: 6px}
 <!-- Header -->
 <header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
   <h5>LIST OF</h5>
-  <h1>PARTIES</h1>
+  <h1>CANDIDATES</h1>
 
 </header>
 
 
 
-<!-- Photo Grid -->
-<!-- <style>
-div {
-    padding-left: 80px;
+<style>
+.btn {
+    border: blue;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
 }
-</style> -->
 
-<div style="padding-left: 15%;">
+.btn:hover {background: #eee;}
+
+.success {color: green;}
+.info {color: dodgerblue;}
+.warning {color: orange;}
+.danger {color: red;}
+.default {color: black;}
+</style>
+
+<div>
     <div class="w3-row-padding w3-grayscale" style="margin-bottom:128px">
       <div class="w3-half">
+          {% for c in first %}
           <div class="flip-card">
            <div class="flip-card-inner">
              <div class="flip-card-front">
-               <h1>Party</h1>
+               <h1>{{ c.name }}</h1>
              </div>
              <div class="flip-card-back">
-                 <h6>Policies</h6>
-                 <p></p>
+                 <h6>Party</h6>
+                 <p>{{ c.party.name }}</p>
                  <br><br>
-                 <h6>Party Head</h6>
-                 <button class="btn">
-                    <span class="text">Press Me!</span>
-                </button>
+                 <h6>Position</h6>
+                 <p>{{ c.position }}</p>
+                 <button type="button" onclick="buttonFunc(this.id)" id="{{ c.cid }}">Cast Vote</a>
              </div>
            </div>
          </div>
+         {% endfor %}
       </div>
 
-      <div class="w3-half">
+      <div class="w3-half" style="padding-left: 10%;">
+          {% for c in second %}
           <div class="flip-card">
            <div class="flip-card-inner">
              <div class="flip-card-front">
-                 <h1>Party</h1>
-               </div>
-               <div class="flip-card-back">
-                   <h6>Policies</h6>
-                   <p></p>
-                   <br><br>
-                   <h6>Party Head</h6>
-                   <button class="btn">
-                      <span class="text">Press Me!</span>
-                  </button>
+               <h1>{{ c.name }}</h1>
+             </div>
+             <div class="flip-card-back">
+                 <h6>Party</h6>
+                 <p>{{ c.party.name }}</p>
+                 <br><br>
+                 <h6>Position</h6>
+                 <p>{{ c.position }}</p>
+                 <a href="#" class="btn" id="{{ c.cid }}">Cast Vote</a>
              </div>
            </div>
          </div>
+         {% endfor %}
       </div>
     </div>
 </div>
 <!-- End Page Content -->
 </div>
 
-
-<script>
-var $btn = document.querySelector('.btn');
-
-$btn.addEventListener('click', e => {
-  alert()
-  window.requestAnimationFrame(() => {
-    $btn.classList.remove('is-animating');
-
-    window.requestAnimationFrame(() => {
-      $btn.classList.add('is-animating');
-    });
-  });
-});
-</script>
 
 
 </body>
