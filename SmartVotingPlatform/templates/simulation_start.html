@@ -3,12 +3,14 @@
 	<head>
 		<title> Election Simulation </title>
  		<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+ 		<link href="{% static 'css/style.css' %}" rel="stylesheet">
 	</head>
 	<body style="background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(151,135,255,1)), color-stop(100%, rgba(255,0,255,1))); /* safari4+,chrome */">
 		<div class="row text-center">
 			<div style="float: none; margin: 0 auto;">
 				<h1> Simulation of an Election </h1>
 				<canvas id="myChart" width="800" height="800"></canvas>
+      			<a href="{% url 'dashboard' %}" class="btn btn-info">Go Back</a>
 			</div>
 		</div>
 	<script src="{% static 'vendor/chart.js/dist/Chart.bundle.min.js' %}"></script>
